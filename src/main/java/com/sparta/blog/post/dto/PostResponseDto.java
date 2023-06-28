@@ -1,6 +1,6 @@
-package com.sparta.blog.dto;
+package com.sparta.blog.post.dto;
 
-import com.sparta.blog.entity.Post;
+import com.sparta.blog.post.entity.Post;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

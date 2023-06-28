@@ -1,10 +1,10 @@
-package com.sparta.blog.service;
+package com.sparta.blog.user.service;
 
-import com.sparta.blog.dto.SignupRequestDto;
-import com.sparta.blog.entity.User;
-import com.sparta.blog.entity.UserRoleEnum;
+import com.sparta.blog.user.dto.SignupRequestDto;
+import com.sparta.blog.user.entity.User;
+import com.sparta.blog.user.entity.UserRoleEnum;
 import com.sparta.blog.jwt.JwtUtil;
-import com.sparta.blog.repository.UserRepository;
+import com.sparta.blog.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,13 +32,6 @@ public class UserService {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
 
-        // email 중복확인
-        String email = requestDto.getEmail();
-        Optional<User> checkEmail = userRepository.findByEmail(email);
-        if (checkEmail.isPresent()) {
-            throw new IllegalArgumentException("중복된 Email 입니다.");
-        }
-
         // 사용자 ROLE 확인
         UserRoleEnum role = UserRoleEnum.USER;
         if (requestDto.isAdmin()) {
@@ -49,7 +42,7 @@ public class UserService {
         }
 
         // 사용자 등록
-        User user = new User(username, password, email, role);
+        User user = new User(username, password, role);
         userRepository.save(user);
     }
 }

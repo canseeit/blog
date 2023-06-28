@@ -1,7 +1,7 @@
 package com.sparta.blog.security;
 
-import com.sparta.blog.entity.User;
-import com.sparta.blog.repository.UserRepository;
+import com.sparta.blog.user.entity.User;
+import com.sparta.blog.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

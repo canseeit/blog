@@ -1,7 +1,7 @@
-package com.sparta.blog.controller;
+package com.sparta.blog.user.controller;
 
-import com.sparta.blog.dto.SignupRequestDto;
-import com.sparta.blog.service.UserService;
+import com.sparta.blog.user.dto.SignupRequestDto;
+import com.sparta.blog.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

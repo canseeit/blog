@@ -1,6 +1,6 @@
-package com.sparta.blog.entity;
+package com.sparta.blog.post.entity;
 
-import com.sparta.blog.dto.PostRequestDto;
+import com.sparta.blog.post.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,10 @@
-package com.sparta.blog.service;
+package com.sparta.blog.post.service;
 
 
-import com.sparta.blog.dto.PostRequestDto;
-import com.sparta.blog.dto.PostResponseDto;
-import com.sparta.blog.entity.Post;
-import com.sparta.blog.repository.PostRepository;
+import com.sparta.blog.post.dto.PostRequestDto;
+import com.sparta.blog.post.dto.PostResponseDto;
+import com.sparta.blog.post.entity.Post;
+import com.sparta.blog.post.repository.PostRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

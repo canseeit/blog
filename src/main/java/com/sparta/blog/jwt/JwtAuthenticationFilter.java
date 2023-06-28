@@ -1,8 +1,8 @@
 package com.sparta.blog.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.blog.dto.LoginRequestDto;
-import com.sparta.blog.entity.UserRoleEnum;
+import com.sparta.blog.user.dto.LoginRequestDto;
+import com.sparta.blog.user.entity.UserRoleEnum;
 import com.sparta.blog.security.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
