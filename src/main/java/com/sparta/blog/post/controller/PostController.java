@@ -1,5 +1,6 @@
 package com.sparta.blog.post.controller;
 
+import com.sparta.blog.dto.ApiResult;
 import com.sparta.blog.post.dto.PostRequestDto;
 import com.sparta.blog.post.dto.PostResponseDto;
 import com.sparta.blog.post.service.PostService;
@@ -39,7 +40,7 @@ public class PostController {
     }
 
     @DeleteMapping("/post/{id}")
-    public Map<String, Boolean> deletePost(@PathVariable Long id) {
+    public ApiResult deletePost(@PathVariable Long id) {
         return postService.deletePost(id);
     }
 }

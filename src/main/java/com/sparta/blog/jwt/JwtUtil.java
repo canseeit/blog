@@ -1,5 +1,6 @@
 package com.sparta.blog.jwt;
 
+import com.sparta.blog.dto.ApiResult;
 import com.sparta.blog.user.entity.User;
 import com.sparta.blog.user.repository.UserRepository;
 import io.jsonwebtoken.*;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import java.security.Key;
@@ -84,7 +86,7 @@ public class JwtUtil {
 
     // 토큰에서 사용자 정보 가져오기
     private Claims getUserInfoFromToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody(); // 마지막에 getBody를 통하여 그 안에 들어있는 정보를 가져옴
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody(); // getBody 안에 들어있는 정보를 가져옴
     }
 
     public User checkToken(HttpServletRequest request) {
@@ -99,11 +101,11 @@ public class JwtUtil {
                 // 토큰에서 사용자 정보 가져오기
                 claims = this.getUserInfoFromToken(token);
             } else {
-                throw new IllegalArgumentException();
+                throw new ApiResult("토큰이 유효하지 않습니다.", HttpStatus.BAD_REQUEST.value());
             }
             // 토큰에서 가져온 사용자 정보를 사용하여 DB 조회
             userEntity = userRepository.findByUsername(claims.getSubject()).orElseThrow(
-                    () -> new IllegalArgumentException()
+                    () -> new ApiResult("사용자 정보가 유효하지 않습니다.", HttpStatus.BAD_REQUEST.value())
             );
         }
         return userEntity;

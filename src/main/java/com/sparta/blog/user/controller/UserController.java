@@ -1,6 +1,6 @@
 package com.sparta.blog.user.controller;
 
-import com.sparta.blog.user.dto.ApiResult;
+import com.sparta.blog.dto.ApiResult;
 import com.sparta.blog.user.dto.LoginRequestDto;
 import com.sparta.blog.user.dto.SignupRequestDto;
 import com.sparta.blog.user.service.UserService;

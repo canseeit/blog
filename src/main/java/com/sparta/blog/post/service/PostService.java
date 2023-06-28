@@ -1,6 +1,7 @@
 package com.sparta.blog.post.service;
 
 
+import com.sparta.blog.dto.ApiResult;
 import com.sparta.blog.jwt.JwtUtil;
 import com.sparta.blog.post.dto.PostRequestDto;
 import com.sparta.blog.post.dto.PostResponseDto;
@@ -9,6 +10,7 @@ import com.sparta.blog.post.repository.PostRepository;
 import com.sparta.blog.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,20 +26,9 @@ public class PostService {
     private final HttpServletRequest request;
     private final JwtUtil jwtUtil;
 
-//    @Transactional
-//    public PostResponseDto createPost(PostRequestDto requestDto) {
-//        // RequestDto -> Entity
-//        Post post = new Post(requestDto);
-//        // DB 저장
-//        post.setUsername(request.getUserPrincipal().getName());
-//        Post savePost = postRepository.save(post);
-//        // Entity -> ResponseDto
-//        return new PostResponseDto(savePost);
-//    }
-
     @Transactional
     public PostResponseDto createPost(PostRequestDto requestDto) {
-        // 토큰 체크 추가
+        // 토큰 체크
         User userEntity = jwtUtil.checkToken(request);
 
         Post postEntity = Post.builder()
@@ -63,11 +54,11 @@ public class PostService {
     @Transactional
     public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
         Post post = findPostById(id);
-        // 토큰 체크 추가
+        // 토큰 체크
         User userEntity = jwtUtil.checkToken(request);
 
         if (!post.getUser().equals(userEntity)) {
-            throw new IllegalArgumentException("작성자의 게시글만 수정할 수 있습니다.");
+            throw new ApiResult("작성자만 수정할 수 있습니다.", HttpStatus.BAD_REQUEST.value());
         }
 
         post.update(requestDto);
@@ -75,21 +66,18 @@ public class PostService {
     }
 
     @Transactional
-    public Map<String, Boolean> deletePost(Long id) {
+    public ApiResult deletePost(Long id) {
         Post post = findPostById(id);
-        // 토큰 체크 추가
+        // 토큰 체크
         User userEntity = jwtUtil.checkToken(request);
         if (!post.getUser().equals(userEntity)) {
-            throw new IllegalArgumentException("작성자의 게시글만 삭제할 수 있습니다.");
+            throw new ApiResult("작성자만 삭제할 수 있습니다.", HttpStatus.BAD_REQUEST.value());
         }
 
         // 게시글 삭제
         postRepository.delete(post);
 
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("success", true);
-
-        return response;
+        return new ApiResult("게시글 삭제 성공", HttpStatus.OK.value());
     }
 
     private Post findPostById(Long id) {
