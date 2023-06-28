@@ -1,7 +1,9 @@
 package com.sparta.blog.post.entity;
 
 import com.sparta.blog.post.dto.PostRequestDto;
+import com.sparta.blog.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,12 +24,15 @@ public class Post extends Timestamped {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User user;
 
-    public Post(PostRequestDto requestDto) {
+    @Builder
+    public Post(PostRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+        this.user = user;
     }
 
     public void update(PostRequestDto requestDto) {

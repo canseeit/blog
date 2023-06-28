@@ -1,6 +1,5 @@
 package com.sparta.blog.user.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -20,6 +19,8 @@ public class SignupRequestDto {
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]*$", message = "소문자, 대문자, 숫자, 특수문자 조합의 비밀번호만 입력 가능합니다.")
     private String password;
 
-    private boolean admin = false;
-    private String adminToken = "";
+    @NotBlank
+    @Pattern(regexp = "ADMIN|USER", message = "권한은 ADMIN 혹은 USER만 입력 가능합니다.")
+    // 추가된 요구사항 2: 회원의 권한 부여하기 (ADMIN or USER)
+    private String role;
 }
