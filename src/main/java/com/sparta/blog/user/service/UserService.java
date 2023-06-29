@@ -1,7 +1,7 @@
 package com.sparta.blog.user.service;
 
-import com.sparta.blog.jwt.JwtUtil;
 import com.sparta.blog.dto.ApiResult;
+import com.sparta.blog.jwt.JwtUtil;
 import com.sparta.blog.user.dto.LoginRequestDto;
 import com.sparta.blog.user.dto.SignupRequestDto;
 import com.sparta.blog.user.entity.User;
@@ -48,7 +48,7 @@ public class UserService {
 
         // 사용자 확인
         User userEntity = userRepository.findByUsername(username).orElseThrow(
-                () -> new ApiResult("회원을 찾을 수 없습니다.", HttpStatus.OK.value())
+                () -> new ApiResult("회원을 찾을 수 없습니다.", HttpStatus.BAD_REQUEST.value())
         );
 
         // 비밀번호 확인

@@ -14,9 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +37,7 @@ public class PostService {
         postRepository.save(postEntity);
         return new PostResponseDto(postEntity);
     }
+
     @Transactional(readOnly = true)
     public List<PostResponseDto> getAllPosts() {
         // 전체 조회
